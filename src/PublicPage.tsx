@@ -33,7 +33,7 @@ export function PublicPage({ services, tireServices, onNavigateToPrivacy }: Publ
   return (
     <div className="min-h-screen bg-[#f5f5f5] text-gray-900 font-sans">
       {/* Header */}
-      <header className={`bg-white border-b sticky top-0 z-[100] shadow-sm transition-transform duration-300 ${isHeaderVisible ? 'translate-y-0' : '-translate-y-full'}`}>
+      <header className={`bg-white border-b fixed top-0 left-0 right-0 z-[100] shadow-sm transition-transform duration-300 ${isHeaderVisible ? 'translate-y-0' : '-translate-y-full'}`}>
         <div className="container mx-auto px-4 py-4">
           <div className="flex items-center justify-between">
             <button
@@ -167,7 +167,7 @@ export function PublicPage({ services, tireServices, onNavigateToPrivacy }: Publ
       </header>
 
       {/* Content */}
-      <main className="container mx-auto px-4 py-8">
+      <main className="container mx-auto px-4 py-8 pt-20 md:pt-24">
         {activeSection === 'hero' && <HeroSection />}
         {activeSection === 'services' && <ServicesSection services={services} />}
         {activeSection === 'tire-services' && <TireServicesSection tireServices={tireServices} />}
