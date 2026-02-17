@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Phone, MapPin, Clock, Mail, FileText, Wrench, Menu, X, Zap, Gem, Smartphone } from 'lucide-react';
 import { Service } from './lib/api/services';
 import { TireService } from './lib/api/tire-services';
@@ -12,11 +12,28 @@ interface PublicPageProps {
 export function PublicPage({ services, tireServices, onNavigateToPrivacy }: PublicPageProps) {
   const [activeSection, setActiveSection] = useState<'hero' | 'services' | 'tire-services' | 'contacts' | 'oferta'>('hero');
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isHeaderVisible, setIsHeaderVisible] = useState(true);
+  const [lastScrollY, setLastScrollY] = useState(0);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const currentScrollY = window.scrollY;
+      if (currentScrollY > lastScrollY && currentScrollY > 80) {
+        setIsHeaderVisible(false);
+      } else {
+        setIsHeaderVisible(true);
+      }
+      setLastScrollY(currentScrollY);
+    };
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, [lastScrollY]);
 
   return (
     <div className="min-h-screen bg-[#f5f5f5] text-gray-900 font-sans">
       {/* Header */}
-      <header className="bg-white border-b sticky top-0 z-[100] shadow-sm">
+      <header className={`bg-white border-b sticky top-0 z-[100] shadow-sm transition-transform duration-300 ${isHeaderVisible ? 'translate-y-0' : '-translate-y-full'}`}>
         <div className="container mx-auto px-4 py-4">
           <div className="flex items-center justify-between">
             <button

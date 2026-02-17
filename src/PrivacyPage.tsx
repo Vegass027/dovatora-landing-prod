@@ -1,14 +1,32 @@
 import { Shield, Lock, Eye, Trash2, Phone, Mail, Clock } from 'lucide-react';
+import { useState, useEffect } from 'react';
 
 interface PrivacyPageProps {
   onNavigateToMain?: () => void;
 }
 
 export function PrivacyPage({ onNavigateToMain }: PrivacyPageProps) {
+  const [isHeaderVisible, setIsHeaderVisible] = useState(true);
+  const [lastScrollY, setLastScrollY] = useState(0);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const currentScrollY = window.scrollY;
+      if (currentScrollY > lastScrollY && currentScrollY > 80) {
+        setIsHeaderVisible(false);
+      } else {
+        setIsHeaderVisible(true);
+      }
+      setLastScrollY(currentScrollY);
+    };
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, [lastScrollY]);
   return (
     <div className="min-h-screen bg-[#f5f5f5] text-gray-900 font-sans">
       {/* Header */}
-      <header className="bg-white border-b sticky top-0 z-[100] shadow-sm">
+      <header className={`bg-white border-b sticky top-0 z-[100] shadow-sm transition-transform duration-300 ${isHeaderVisible ? 'translate-y-0' : '-translate-y-full'}`}>
         <div className="container mx-auto px-4 py-4">
           <div className="flex items-center justify-between">
             <button
