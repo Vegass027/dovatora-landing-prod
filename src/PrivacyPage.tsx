@@ -31,22 +31,22 @@ export function PrivacyPage({ onNavigateToMain }: PrivacyPageProps) {
           <div className="flex items-center justify-between">
             <button
               onClick={onNavigateToMain}
-              className="text-xl md:text-2xl font-bold text-blue-600 hover:text-blue-700 transition-colors cursor-pointer"
+              className="flex items-center gap-2 px-4 py-2 border-2 border-blue-600 text-blue-600 rounded-lg hover:bg-blue-50 transition-colors cursor-pointer font-medium text-sm md:text-base"
             >
-              Автомойка "Фреш"
+              ← Главная
             </button>
             <button
               onClick={onNavigateToMain}
-              className="text-sm font-medium text-gray-600 hover:text-blue-600 transition-colors cursor-pointer"
+              className="text-lg md:text-2xl font-bold text-blue-600 hover:text-blue-700 transition-colors cursor-pointer"
             >
-              ← Вернуться на главную
+              Автомойка "Фреш"
             </button>
           </div>
         </div>
       </header>
 
       {/* Content */}
-      <main className="container mx-auto px-4 py-8 md:py-12 pt-20 md:pt-24">
+      <main className="container mx-auto px-4 py-8 md:py-12 pt-24 md:pt-28">
         <div className="max-w-4xl mx-auto">
           {/* Header */}
           <div className="text-center mb-8 md:mb-12">
