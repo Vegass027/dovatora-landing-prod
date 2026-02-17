@@ -1,24 +1,28 @@
 import { Shield, Lock, Eye, Trash2, Phone, Mail, Clock } from 'lucide-react';
 
-export function PrivacyPage() {
+interface PrivacyPageProps {
+  onNavigateToMain?: () => void;
+}
+
+export function PrivacyPage({ onNavigateToMain }: PrivacyPageProps) {
   return (
     <div className="min-h-screen bg-[#f5f5f5] text-gray-900 font-sans">
       {/* Header */}
       <header className="bg-white border-b sticky top-0 z-50 shadow-sm">
         <div className="container mx-auto px-4 py-4">
           <div className="flex items-center justify-between">
-            <a
-              href="/"
-              className="text-xl md:text-2xl font-bold text-blue-600 hover:text-blue-700 transition-colors"
+            <button
+              onClick={onNavigateToMain}
+              className="text-xl md:text-2xl font-bold text-blue-600 hover:text-blue-700 transition-colors cursor-pointer"
             >
               Автомойка "Фреш"
-            </a>
-            <a
-              href="/"
-              className="text-sm font-medium text-gray-600 hover:text-blue-600 transition-colors"
+            </button>
+            <button
+              onClick={onNavigateToMain}
+              className="text-sm font-medium text-gray-600 hover:text-blue-600 transition-colors cursor-pointer"
             >
               ← Вернуться на главную
-            </a>
+            </button>
           </div>
         </div>
       </header>

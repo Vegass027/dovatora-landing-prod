@@ -6,9 +6,10 @@ import { TireService } from './lib/api/tire-services';
 interface PublicPageProps {
   services: Service[];
   tireServices: TireService[];
+  onNavigateToPrivacy?: () => void;
 }
 
-export function PublicPage({ services, tireServices }: PublicPageProps) {
+export function PublicPage({ services, tireServices, onNavigateToPrivacy }: PublicPageProps) {
   const [activeSection, setActiveSection] = useState<'hero' | 'services' | 'tire-services' | 'contacts' | 'oferta'>('hero');
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
@@ -158,7 +159,7 @@ export function PublicPage({ services, tireServices }: PublicPageProps) {
       </main>
 
       {/* Footer */}
-      <Footer onSectionChange={setActiveSection} />
+      <Footer onSectionChange={setActiveSection} onNavigateToPrivacy={onNavigateToPrivacy} />
     </div>
   );
 }
@@ -582,7 +583,12 @@ function OfertaSection({ onSectionChange }: { onSectionChange: (section: 'hero' 
   );
 }
 
-function Footer({ onSectionChange }: { onSectionChange: (section: 'hero' | 'services' | 'tire-services' | 'contacts' | 'oferta') => void }) {
+interface FooterProps {
+  onSectionChange: (section: 'hero' | 'services' | 'tire-services' | 'contacts' | 'oferta') => void;
+  onNavigateToPrivacy?: () => void;
+}
+
+function Footer({ onSectionChange, onNavigateToPrivacy }: FooterProps) {
   return (
     <footer className="bg-gray-900 text-white py-6 md:py-8 mt-8 md:mt-12">
       <div className="container mx-auto px-4">
@@ -614,10 +620,7 @@ function Footer({ onSectionChange }: { onSectionChange: (section: 'hero' | 'serv
                 Договор оферты
               </button>
               <button
-                onClick={() => {
-                  window.history.pushState({}, '', '/privacy')
-                  window.location.reload()
-                }}
+                onClick={onNavigateToPrivacy}
                 className="text-left text-gray-300 hover:text-blue-400 transition-colors cursor-pointer"
               >
                 Политика конфиденциальности

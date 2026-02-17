@@ -9,7 +9,7 @@ import './index.css'
 function App() {
   const [services, setServices] = useState<any[]>([])
   const [tireServices, setTireServices] = useState<any[]>([])
-  const [currentPath, setCurrentPath] = useState<string>(window.location.pathname)
+  const [currentPage, setCurrentPage] = useState<'main' | 'privacy'>('main')
 
   useEffect(() => {
     async function loadData() {
@@ -27,19 +27,33 @@ function App() {
     loadData()
   }, [])
 
+  const navigateToPrivacy = () => {
+    setCurrentPage('privacy')
+    window.history.pushState({}, '', '/privacy')
+  }
+
+  const navigateToMain = () => {
+    setCurrentPage('main')
+    window.history.pushState({}, '', '/')
+  }
+
   useEffect(() => {
     const handlePopState = () => {
-      setCurrentPath(window.location.pathname)
+      if (window.location.pathname === '/privacy') {
+        setCurrentPage('privacy')
+      } else {
+        setCurrentPage('main')
+      }
     }
     window.addEventListener('popstate', handlePopState)
     return () => window.removeEventListener('popstate', handlePopState)
   }, [])
 
-  if (currentPath === '/privacy') {
-    return <PrivacyPage />
+  if (currentPage === 'privacy') {
+    return <PrivacyPage onNavigateToMain={navigateToMain} />
   }
 
-  return <PublicPage services={services} tireServices={tireServices} />
+  return <PublicPage services={services} tireServices={tireServices} onNavigateToPrivacy={navigateToPrivacy} />
 }
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
