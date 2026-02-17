@@ -614,6 +614,15 @@ function Footer({ onSectionChange }: { onSectionChange: (section: 'hero' | 'serv
                 Договор оферты
               </button>
               <button
+                onClick={() => {
+                  window.history.pushState({}, '', '/privacy')
+                  window.location.reload()
+                }}
+                className="text-left text-gray-300 hover:text-blue-400 transition-colors cursor-pointer"
+              >
+                Политика конфиденциальности
+              </button>
+              <button
                 onClick={() => onSectionChange('contacts')}
                 className="text-left text-gray-300 hover:text-blue-400 transition-colors cursor-pointer"
               >

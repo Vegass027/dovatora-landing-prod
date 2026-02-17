@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import ReactDOM from 'react-dom/client'
 import { PublicPage } from './PublicPage'
+import { PrivacyPage } from './PrivacyPage'
 import { getServices } from './lib/api/services'
 import { getTireServices } from './lib/api/tire-services'
 import './index.css'
@@ -8,6 +9,7 @@ import './index.css'
 function App() {
   const [services, setServices] = useState<any[]>([])
   const [tireServices, setTireServices] = useState<any[]>([])
+  const [currentPath, setCurrentPath] = useState<string>(window.location.pathname)
 
   useEffect(() => {
     async function loadData() {
@@ -24,6 +26,18 @@ function App() {
     }
     loadData()
   }, [])
+
+  useEffect(() => {
+    const handlePopState = () => {
+      setCurrentPath(window.location.pathname)
+    }
+    window.addEventListener('popstate', handlePopState)
+    return () => window.removeEventListener('popstate', handlePopState)
+  }, [])
+
+  if (currentPath === '/privacy') {
+    return <PrivacyPage />
+  }
 
   return <PublicPage services={services} tireServices={tireServices} />
 }
