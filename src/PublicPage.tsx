@@ -31,9 +31,9 @@ export function PublicPage({ services, tireServices, onNavigateToPrivacy }: Publ
   }, [lastScrollY]);
 
   return (
-    <div className="min-h-screen bg-[#f5f5f5] text-gray-900 font-sans">
+    <div className="min-h-screen bg-[#f5f5f5] text-gray-900 font-sans relative">
       {/* Header */}
-      <header className={`bg-white border-b fixed top-0 left-0 right-0 z-[100] shadow-sm transition-transform duration-300 ${isHeaderVisible ? 'translate-y-0' : '-translate-y-full'}`}>
+      <header className={`bg-white border-b absolute top-0 left-0 right-0 z-[100] shadow-sm transition-transform duration-300 ${isHeaderVisible ? 'translate-y-0' : '-translate-y-full'}`}>
         <div className="container mx-auto px-4 py-4">
           <div className="flex items-center justify-between">
             <button
