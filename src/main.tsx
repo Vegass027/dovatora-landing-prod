@@ -9,7 +9,10 @@ import './index.css'
 function App() {
   const [services, setServices] = useState<any[]>([])
   const [tireServices, setTireServices] = useState<any[]>([])
-  const [currentPage, setCurrentPage] = useState<'main' | 'privacy'>('main')
+  const [currentPage, setCurrentPage] = useState<'main' | 'privacy'>(() => {
+    // Проверяем URL при инициализации
+    return window.location.pathname === '/privacy' ? 'privacy' : 'main'
+  })
 
   useEffect(() => {
     async function loadData() {
